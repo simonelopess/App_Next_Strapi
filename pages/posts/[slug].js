@@ -1,7 +1,8 @@
 import Header from '../../components/Header';
 import ContentWrapper from '../../components/ContentWrapper';
-
 import Footer from '../../components/Footer';
+import ReactMarkdown from 'react-markdown';
+import styles from '../../styles/BlogPage.module.css';
 
 const URL = process.env.STRAPIBASEURL
 
@@ -58,7 +59,8 @@ export async function getStaticProps({ params }) {
     const { data } = await res.json();
 
     return {
-        props: data.blogposts[0]
+        props: data.blogposts[0],
+        revalidate: 10
     }
 }
 
@@ -66,7 +68,10 @@ export default function Content({ title, blogbody, splash }) {
     return (
         <ContentWrapper>
             <Header />
-            <h1>{title}</h1>
+            <main className={styles.grid}>
+                <h1>{title}</h1>
+                <ReactMarkdown>{blogbody}</ReactMarkdown>
+            </main>
             <Footer />
         </ContentWrapper>
     )
