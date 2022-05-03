@@ -8,27 +8,31 @@ const URL = process.env.STRAPIBASEURL
 
 
 export async function getStaticProps() {
+
     const fetchParams = {
         method: "POST",
         headers: {
             "content-type": "application/json"
         },
         body: JSON.stringify({
-            query: `{
-                aboutcontents {
-                    body
+            query: `
+            {
+                aboutcontents{
+                  body
                 }
-            }`
+              }
+            `
         })
     }
 
     const res = await fetch(`${URL}/graphql`, fetchParams);
     const { data } = await res.json();
 
+
     return {
         props: data.aboutcontents[0],
         revalidate: 10
-    }
+    };
 }
 
 export default function About({ body }) {
