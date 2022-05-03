@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 
     const res = await fetch(`${URL}/graphql`, fetchParams);
     const posts = await res.json();
-    const paths = posts.data.blogposts.map((post) => {
+    const paths = posts.data.blogposts?.map((post) => {
         return { params: { slug: post.slug } }
     })
     //cria rotas dinamicas
